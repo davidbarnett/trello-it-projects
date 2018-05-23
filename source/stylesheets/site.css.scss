@@ -19,3 +19,21 @@ body {
   vertical-align: middle;
   text-transform: uppercase;
 }
+
+table.project-list th.head {
+  margin-top: 200px;
+  background-color: #ececec;
+  padding-left: 10px !important;
+}
+table.project-list progress {
+  padding-top: 5px;
+}
+table.project-list tr.legend th {
+  font-family: 'Lato';
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  color: #929292;
+  vertical-align: middle;
+  text-transform: uppercase;
+}

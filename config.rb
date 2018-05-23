@@ -16,6 +16,9 @@ page '/*.txt', layout: false
 # With alternative layout
 # page '/path/to/file.html', layout: 'other_layout'
 
+
+
+
 # Proxy pages
 # https://middlemanapp.com/advanced/dynamic-pages/
 
@@ -40,7 +43,29 @@ page '/*.txt', layout: false
 # Build-specific configuration
 # https://middlemanapp.com/advanced/configuration/#environment-specific-settings
 
-# configure :build do
-#   activate :minify_css
-#   activate :minify_javascript
-# end
+configure :build do
+
+  # load environment variables
+  activate :dotenv, env: '.env.build'
+
+  # use the custom library
+  require './lib/trello'
+
+  # configure parameters of the custom library
+  Trello.configure do |config|
+    config.time_zone = 'Pacific Time (US & Canada)'
+    config.developer_public_key = ENV['developer_public_key']
+    config.member_token = ENV['member_token']
+    config.actions_to_load = ['createCard', 'commentCard', 'updateCard',  'addMemberToCard', 'removeMemberFromCard', 'updateCheckItemStateOnCard']
+  end
+
+  # https://trello.com/b/mH38wPIp/trello-it-projects is the url of the board we want, grab the ID
+  board = Trello::Board.new('mH38wPIp')
+
+  # load the board into a variable that can be accessed in pages
+  config[:board] = board
+   
+  # minify css/javascript, for efficiency
+  activate :minify_css
+  activate :minify_javascript
+end

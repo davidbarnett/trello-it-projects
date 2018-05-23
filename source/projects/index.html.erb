@@ -1,0 +1,47 @@
+---
+title: Projects
+---
+<%
+#  For this page, we're going to list cards in our In Progress list that have a
+#  label that begins with Type:
+board = config[:board]
+#active_lists = board.find_lists_by_name(/In Progress/)
+# If we wanted to include all the projects in multiple lists, we could do something like this:
+active_lists = board.find_lists_by_name(/(In Progress|Next)/)
+labels = board.find_labels_by_name(/^Type\:/)
+%>
+
+
+
+<table class="project-list table">
+
+ <% labels.each do |label| %>
+ <tr>
+  <th colspan="4" class="head"><%=label.name%></th>
+ </tr>
+ <tr class="legend">
+  <th>Project Name</th>
+  <th>Status</th>
+  <th>Estimated Completion</th>
+  <th>Owner</th>
+ </tr>
+ <%
+  active_lists.each do |list|
+    list.cards.each do |card|
+      if card.labels.include?(label)
+      %>
+      
+      <%= partial 'layouts/partials/projects_table', :locals => {:card => card, :list => list}  %>
+
+      <%
+      end
+    end
+  end
+ %>
+
+ <% end %>
+
+</table>
+
+
+

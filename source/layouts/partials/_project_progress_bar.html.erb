@@ -1,0 +1,20 @@
+   <% card.checklists.each do |cl| %>
+         <% 
+         if cl.milestones
+            total = 0
+            checked = 0
+            cl.items.each do |ci|
+              total += 1
+              if ci.state == 'complete'
+                checked += 1
+              end
+            end
+            percentage = ((checked.to_f / total.to_f) * 100).round
+        %>
+        <div class="progress" style="height: 7px;">
+          <progress class="progress-bar bg-success" role="progressbar" style="width: <%=percentage%>%" aria-valuenow="<%=percentage%>" aria-valuemin="0" aria-valuemax="100" max="100"></progress>
+        </div>
+  <%
+        end
+         %>
+  <% end %>

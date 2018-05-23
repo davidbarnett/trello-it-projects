@@ -1,0 +1,34 @@
+<tr>
+   <td><a href="/project/<%=card.slug%>/"><%=card.name%>
+       <%= partial 'layouts/partials/project_progress_bar', :locals => {  :card => card } %></a>
+   </td>
+   <td>
+       <% 
+        if card.labels.include?(config[:on_time])
+        %>
+        <%=list.name%>
+        <br/>On Time
+        <%
+        elsif card.labels.include?(config[:on_hold])
+        %>
+        On Hold
+        <%
+        elsif card.labels.include?(config[:delayed])
+        %>
+        <%=list.name%>
+        <br/>Delayed
+        <%
+        else %>
+        <%=list.name%>
+        <%
+        end #if card.labels.include?(config[:on_time])
+       %>
+   </td>
+   <td><%if card.labels.include?(config[:on_hold]) %>
+        On Hold
+        <%else%>
+        <%=card.due.nil? ? '' : card.due.strftime("%b %d, %Y")%>
+        <%end%></td>
+   <td class="fit"> 
+    <%=card.members.map {|x| "<a href='/member/#{x.username}/' class='owner-link'>" + x.full_name + '</a>'}.join('<br/> ')%></td>
+  </tr>
