@@ -1,0 +1,30 @@
+---
+title: 'KCCD Information Technology : Projects'
+nav_active: 'projects'
+---
+<%
+explore = board.find_list_by_id('51002f63fc371260410006e6')
+up_next = board.find_list_by_id('51002f63fc371260410006e7')
+in_progress = board.find_list_by_id('51002f7ffc371260410006f2')
+maintenance = board.find_list_by_id('545954fea3a0879d0c84f16b')
+
+label = board.find_label_by_id(label_id)
+current_page.data.title = "#{config[:org]} #{config[:dept]} : Projects labeled #{label.name}"
+lists = board.find_lists_by_name(/(Next|In\ Progress|Maintenance)/)
+%>
+<h2>Projects with the <%=label.name%> Label</h2>
+
+<div class="container">
+ <div class="row">
+    <% lists.each do |list| %>
+    <div class="col-md-3">
+        <h3><%=list.name%></h3>
+        <ul class="projects">
+        <% list.cards_with_label(label).each do |card| %>
+            <li><a href="/projects/<%=card.slug%>/"><%=card.name%></a></li>
+        <% end %>
+        </ul>
+    </div>
+    <% end %>
+ </div>
+</div>

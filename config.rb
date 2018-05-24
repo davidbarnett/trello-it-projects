@@ -84,6 +84,11 @@ configure :build do
     proxy "member/#{member.username}/index.html", "/member/index.html", :locals => { :member_id => member.id, :board => board }, :ignore => true
   end
 
+  # Same as above, go through lables and make a labels page.
+  board.labels.each do |label|
+    proxy "/label/#{label.id}/index.html", "/label/index.html", :locals => { :label_id => label.id, :board => board }, :ignore => true
+  end
+
   # minify css/javascript, for efficiency
   activate :minify_css
   activate :minify_javascript
