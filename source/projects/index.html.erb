@@ -5,6 +5,7 @@ title: Projects
 #  For this page, we're going to list cards in our In Progress list that have a
 #  label that begins with Type:
 board = config[:board]
+current_page.data.title = "#{config[:sitetitle]} : Projects by Type"
 #active_lists = board.find_lists_by_name(/In Progress/)
 # If we wanted to include all the projects in multiple lists, we could do something like this:
 active_lists = board.find_lists_by_name(/(In Progress|Next)/)

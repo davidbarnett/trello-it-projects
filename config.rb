@@ -51,6 +51,9 @@ configure :build do
   # use the custom library
   require './lib/trello'
 
+  config[:sitetitle] = "Trello IT Projects"
+
+
   # configure parameters of the custom library
   Trello.configure do |config|
     config.time_zone = 'Pacific Time (US & Canada)'

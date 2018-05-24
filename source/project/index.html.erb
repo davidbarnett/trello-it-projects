@@ -3,6 +3,7 @@ title: "Project"
 ---
 <%
 project = board.find_card_by_id(project_id)
+current_page.data.title = "#{config[:org]} : Project : #{project.name}"
 markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
 %>
 
