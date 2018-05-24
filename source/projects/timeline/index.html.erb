@@ -1,0 +1,85 @@
+---
+title: '#{config[:sitetite]} : Projects'
+nav_active: 'timeline'
+---
+<%
+board = config[:board]
+#explore = config[:explore]
+up_next = board.find_lists_by_name(/Next/)[0]
+in_progress = board.find_lists_by_name(/In\ Progress/)[0]
+#maintenance = config[:maintenance]
+
+lists = [in_progress, up_next]
+current_page.data.title = "#{config[:org]} #{config[:dept]} : Projects Timeline"
+%>
+<%
+due_dates = []
+lists.each do |list|
+  list.cards.each do |card|
+    if card.due != nil #&& card.name.match(/^\[private\]/) == nil
+        m = card.due.strftime("%m").to_i
+        if (1..5) === m
+          q = "Spring"
+        elsif (6..8) === m
+          q = "Summer"
+        elsif (9..12) === m
+          q = "Fall"
+        else 
+          q = "Y"
+        end
+      term = q + ' ' + card.due.strftime("%Y")
+      due_dates << [card.name, card.due, term, card.slug]
+    end
+    #sleep(10) until api_ready?
+  end
+  #sleep(1) until api_ready?
+end
+last_term = ""
+li_class = "class=\"timeline-inverted\""
+%>
+
+<div class="container">
+    <ul class="timeline">
+    <%
+    due_dates.sort_by{|n,d,t,i|d}.each do |n, d, t, i|
+    if last_term != t && last_term != ""
+    %>
+     </ul>
+          </div>
+        </div>
+       </li>
+  <% end %>
+    <%
+      unless t == last_term
+       if li_class == "class=\"timeline-inverted\""
+         li_class = ""
+       else
+         li_class = "class=\"timeline-inverted\""
+       end 
+    %>
+    <li <%=li_class%>>
+      <div class="timeline-badge"><%=t%></div>
+      <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">Estimated: <%=t%></h4>
+              <!-- <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p> -->
+            </div>
+            <div class="timeline-body">
+            <ul>
+    <% 
+      end 
+    %>
+        
+              <li><span class="d-block pull-sm-right" style="color:#ababab;"><%=d.strftime("%b %d, %Y")%></span><a href="/project/<%=i%>/" class="d-block"><%=n%></a></li>
+            
+    <%
+      last_term = t
+    end
+    %>
+    </ul>
+    </div>
+  </div>
+  </li>
+
+    </ul>
+</div>
