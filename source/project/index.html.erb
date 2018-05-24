@@ -1,0 +1,101 @@
+---
+title: "Project"
+---
+<%
+project = board.find_card_by_id(project_id)
+markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+%>
+
+
+  <div class="container">
+   <div class="col-md-8 offset-md-2">
+    <h2 class="text-xs-center"><%=project.name%></h2>
+    <div class="m-b-30">
+      <% if project.desc.length > 0 %>
+       <%=markdown.render(project.desc.split('[private]')[0]).html_safe%>
+      <% end %>
+    </div><!-- .doc -->
+  </div><!-- .col -->
+ </div><!-- .container .text-xs-center -->
+
+        <% project.actions.each do |action| %>
+           <% if action.text.match(/^\[alert\]/) %>
+		   <div class="row">
+		    <div class="container">
+             <div class="alert alert-warning alert-dismissible" style="padding-top:15px" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <%=markdown.render(action.text.sub('[alert]', '')).html_safe%>
+              </div>
+			 </div>
+			</div>
+           <% end %>
+        <% end %>
+
+
+ <div class="container">
+   <div class="row">
+ 	 <!-- Project Updates -->
+	 <div class="col-md-8">
+	 <h3>Project Updates</h3>
+	     <% project.actions.each do |action| %>
+        <div class="update">
+          <span class="post-details"><%=action.datetime.strftime("%b %d, %Y")%> // <%=action.member.full_name%></span>
+          <%=markdown.render(action.text.sub('[public]', '')).html_safe%>
+        </div>
+       <% end %>
+	</div>
+	<!-- /Project Updates -->
+    
+    <!--  Right Column -->
+	<div class="col-md-4">
+        <h3>IT Owner(s)</h3>
+        <ul class="project-owners">
+        <% project.members.each do |m| %>
+            <li><a href="/member/<%=m.username%>/" class="clearfix"><img src="https://trello-avatars.s3.amazonaws.com/<%=m.avatar%>/50.png" alt="<%=m.full_name%>"/><div class="details"><span class="name"><%=m.full_name%></span>
+            </div></a></li>
+        <% end%>
+        </ul>
+        
+      <%
+        project.checklists.each do |c|
+	        if c.milestones %>
+      <h3>Milestones</h3>
+        <ul class="project-milestones">
+          <% 
+              c.items.each do |i|
+              %>
+              <li class="<%=i.state%>"><%=i.name%></li>
+              <%
+            end %>
+        </ul>
+	      <%  end %>
+      <% end %> <!-- new -->
+
+        <%
+       
+        project.checklists.each do |c|
+	        unless c.milestones %>
+      <h3><%=c.name%></h3>
+        <ul class="project-resources">
+          <% 
+              c.items.each do |i|
+              %>
+              <li><%=markdown.render(i.name).html_safe.gsub('<p>', '').gsub('</p>', '')%></li>
+              <%
+            end %>
+        </ul>
+	      <%  end 
+        end
+%>
+        <% if project.labels.count > 0 %>
+        <h3>Labels</h3>
+        <ul class="project-labels">
+          <% project.labels.each do |l| %>
+            <li class="tag"><a href="/label/<%=l.id%>/" class="rounded-4x"><%=l.name%></a></li>
+          <% end %>
+        </ul>
+       <% end %>
+	</div>
+	<!-- /Right Column -->
+  </div>
+ </div> <!-- /container -->

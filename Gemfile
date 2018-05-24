@@ -7,3 +7,4 @@ gem 'wdm', '~> 0.1', platforms: [:mswin, :mingw]
 
 # gems for trello-it-projects
 gem 'middleman-dotenv'  #for environment variables
+gem 'redcarpet' #for processing markdown

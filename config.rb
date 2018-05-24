@@ -64,7 +64,18 @@ configure :build do
 
   # load the board into a variable that can be accessed in pages
   config[:board] = board
-   
+
+
+  # Loop through cards, make individual project pages through
+  # middleman's proxy feature.
+  board.lists.each do |list|
+    unless list.name.match(/^Done/)
+      list.cards.each do |card|
+        proxy "/project/#{card.slug}/index.html", "/project/index.html", :locals => { :project_id => card.id, :board => board}, :ignore => true
+      end
+    end
+  end
+
   # minify css/javascript, for efficiency
   activate :minify_css
   activate :minify_javascript
