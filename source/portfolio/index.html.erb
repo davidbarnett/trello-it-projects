@@ -1,0 +1,39 @@
+---
+title: 'Portfiolio'
+nav_active: 'portfolio'
+---
+<%
+board = config[:board]
+lists = board.find_lists_by_name(/Maintenance/)
+%>
+
+ <div class="container">
+ <div class="row">
+<table class="project-list table">
+ <tr>
+  <th colspan="4" class="head">IT Portfolio</th>
+ </tr>
+ <tr class="legend">
+  <th>Name</th>
+  <th>Owned By</th>
+ </tr>
+ <%
+  lists.each do |list|
+    list.cards.each do |card|
+        #if card.name.match(/^\[private\]/) == nil
+        %>
+  <tr>
+   <td><a href="/project/<%=card.slug%>/"><%=card.name%></a>
+   </td>
+   <td><%=card.members.map {|x| "<a href='/member/#{x.username}/'>" + x.full_name + '</a>'}.join('<br/> ')%></td>
+  </tr>
+        <% 
+        #end
+        #sleep(1) until api_ready?
+    end
+  end
+%>
+
+ </table>
+</div>
+</div>
