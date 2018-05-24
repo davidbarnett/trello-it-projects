@@ -30,7 +30,7 @@ current_page.data.title = "#{config[:sitetitle]} : #{member.full_name}"
     <h3><%=member.full_name%>'s Projects</h3>
     <ul>
     <% member.cards.each do |card| %>
-        <li><a href="/projects/<%=card.slug%>/"><%=card.name%></a></li>
+        <li><a href="/project/<%=card.slug%>/"><%=card.name%></a></li>
     <% end %>
     </ul>
  <div>
