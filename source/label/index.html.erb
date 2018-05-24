@@ -21,7 +21,7 @@ lists = board.find_lists_by_name(/(Next|In\ Progress|Maintenance)/)
         <h3><%=list.name%></h3>
         <ul class="projects">
         <% list.cards_with_label(label).each do |card| %>
-            <li><a href="/projects/<%=card.slug%>/"><%=card.name%></a></li>
+            <li><a href="/project/<%=card.slug%>/"><%=card.name%></a></li>
         <% end %>
         </ul>
     </div>
