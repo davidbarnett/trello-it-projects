@@ -1,0 +1,39 @@
+---
+title: 'KCCD Information Technology : Projects by User'
+nav_active: 'projects'
+---
+<%
+member = board.find_member_by_id(member_id)
+current_page.data.title = "#{config[:sitetitle]} : #{member.full_name}"
+%>
+
+<div class="container">
+ <div class="row">
+  <div class="col-md-9">
+  <h2><%=member.full_name%>'s Recent Activity</h2>
+
+   <% 
+      member.actions.select{|a| a.datetime > (Time.now - 30.days)}.sort_by{|obj| obj.datetime }.reverse.each do |action|
+   %>
+      <div class="action">
+       <div class="datetime"><%=action.datetime.strftime("%A, %B %e %l:%M%p")%></div>
+       <h5 class="project"><a href="/project/<%=action.card.slug%>/"><%=action.card.name%></a></h5>
+       <p><%=action.to_s%></p>
+      </div>
+   <%
+    end
+   %>
+   </div>
+
+  <!-- Explore -->
+  <div class="col-md-3">
+    <h3><%=member.full_name%>'s Projects</h3>
+    <ul>
+    <% member.cards.each do |card| %>
+        <li><a href="/projects/<%=card.slug%>/"><%=card.name%></a></li>
+    <% end %>
+    </ul>
+ <div>
+ </div>
+  <!-- /Maintenance -->
+ </div> <!-- /container -->

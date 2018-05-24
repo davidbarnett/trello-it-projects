@@ -79,6 +79,11 @@ configure :build do
     end
   end
 
+  # Same as above, go through members and make a members page.
+  board.members.each do |member|
+    proxy "member/#{member.username}/index.html", "/member/index.html", :locals => { :member_id => member.id, :board => board }, :ignore => true
+  end
+
   # minify css/javascript, for efficiency
   activate :minify_css
   activate :minify_javascript
