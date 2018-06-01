@@ -33,7 +33,7 @@ while you're logged in, visit [Trello's App Key Page](https://trello.com/app-key
 
 
 ### Disclaimer
-This is provided as-is with no warranty or support.   I can make no guarantees regarding the fitness of this code to be use for any purpose.  By using this you agree to indemnify, defend, and hold me harmless for any liability incurred by the use of this software. 
+This is provided as-is with no warranty or support.   I can make no guarantees regarding the fitness of this code to be used for any purpose.  By using this you agree to indemnify, defend, and hold me harmless for any liability incurred by the use of this software. 
 
 /In short, use this software at your own risk/
 
