@@ -5,9 +5,11 @@
 This project requires Git and Ruby, and then you can:
 
 *Step 1: Install Middleman, Clone the Repo, Install Gems*
-> gem install middleman
-> git clone https://github.com/davidbarnett/trello-it-projects.git
-> bundle install
+> gem install middleman 
+
+> git clone https://github.com/davidbarnett/trello-it-projects.git 
+
+> bundle install 
 
 
 *Step 2: Get Trello Key/Secret, Create an ENV file
@@ -38,5 +40,7 @@ This is provided as-is with no warranty or support.   I can make no guarantees r
 ### Appendix
 
 *Documentation Links*
+
 [Twitter Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
+
 [Middleman](https://middlemanapp.com/basics/install/)
