@@ -7,9 +7,9 @@ nav_active: projects
 #  label that begins with Type:
 board = config[:board]
 current_page.data.title = "#{config[:sitetitle]} : Projects by Type"
-#active_lists = board.find_lists_by_name(/In Progress/)
+active_lists = board.find_lists_by_name(/In Progress/)
 # If we wanted to include all the projects in multiple lists, we could do something like this:
-active_lists = board.find_lists_by_name(/(In Progress|Next)/)
+# active_lists = board.find_lists_by_name(/(In Progress|Next)/)
 labels = board.find_labels_by_name(/^Type\:/)
 %>
 
