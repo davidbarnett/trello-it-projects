@@ -429,7 +429,8 @@ class Trello
                 return response
             end
             if @type == "createCard"
-                if @data['list']['id'].nil?
+                # If a list id doesn't exist, or if the list isn't in this board.
+                if @data['list']['id'].nil? || @card.board.find_list_by_id(@data['list']['id']).nil?
                     return "#{@member.full_name} created this project"
                 else
                     return "#{@member.full_name} created this project and added it to #{@card.board.find_list_by_id(@data['list']['id']).name}"
